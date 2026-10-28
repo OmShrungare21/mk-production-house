@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MK Production House — Instrument Service, Repair & Custom Branding</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#130a0b;
+  --bg2:#1d1112;
+  --panel:#251517;
+  --curtain:#5c1a24;
+  --curtain2:#7a2230;
+  --brass:#c9974f;
+  --brassbright:#e3b871;
+  --cream:#f5ead9;
+  --muted:rgba(245,234,217,0.55);
+  --staffline:rgba(245,234,217,0.055);
+  --border:rgba(245,234,217,0.1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background-color:var(--bg);
+  color:var(--cream);
+  font-family:'Work Sans',sans-serif;
+  font-weight:400;
+  overflow-x:hidden;
+  background-image:repeating-linear-gradient(to bottom,
+    transparent 0px, transparent 5px,
+    var(--staffline) 5px, var(--staffline) 6px,
+    transparent 6px, transparent 11px,
+    var(--staffline) 11px, var(--staffline) 12px,
+    transparent 12px, transparent 17px,
+    var(--staffline) 17px, var(--staffline) 18px,
+    transparent 18px, transparent 23px,
+    var(--staffline) 23px, var(--staffline) 24px,
+    transparent 24px, transparent 130px);
+}
+h1,h2,h3,.display{font-family:'Fraunces',serif;}
+
+/* CIRCULAR PHOTO - drum head motif, signature visual device */
+.photo-circle{position:relative;border-radius:50%;overflow:hidden;flex-shrink:0;box-shadow:0 0 0 3px var(--bg),0 0 0 5px var(--brass),0 14px 34px rgba(0,0,0,0.55);}
+.photo-circle img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(0.85) contrast(1.08) brightness(0.82);}
+.photo-circle::after{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 32% 28%,rgba(227,184,113,0.22),transparent 55%),linear-gradient(155deg,rgba(19,10,11,0.35),rgba(92,26,36,0.3));pointer-events:none;}
+
+/* EQUALIZER decorative accent - literal sound motif */
+.eq{display:inline-flex;align-items:flex-end;gap:3px;height:16px;}
+.eq span{width:3px;background:var(--brassbright);border-radius:1px;animation:eqPulse 1.1s ease-in-out infinite;}
+.eq span:nth-child(1){height:40%;animation-delay:0s;}
+.eq span:nth-child(2){height:100%;animation-delay:0.15s;}
+.eq span:nth-child(3){height:65%;animation-delay:0.3s;}
+.eq span:nth-child(4){height:85%;animation-delay:0.45s;}
+.eq span:nth-child(5){height:50%;animation-delay:0.6s;}
+@keyframes eqPulse{0%,100%{transform:scaleY(0.4);}50%{transform:scaleY(1);}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:78px;padding:0 56px;display:flex;align-items:center;justify-content:space-between;transition:all 0.4s;}
+nav.scrolled{background:rgba(19,10,11,0.94);backdrop-filter:blur(16px);box-shadow:0 1px 0 var(--border);}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.nav-logo-icon{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--brass);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:600;font-size:15px;color:var(--brassbright);}
+.nav-logo-txt{display:flex;flex-direction:column;line-height:1.15;}
+.nav-logo-name{font-family:'Fraunces',serif;font-weight:600;font-size:19px;color:var(--cream);}
+.nav-logo-sub{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--brass);}
+.nav-links{display:flex;align-items:center;gap:36px;list-style:none;}
+.nav-links a{font-size:13.5px;color:var(--cream);text-decoration:none;opacity:0.6;transition:all 0.3s;}
+.nav-links a:hover{opacity:1;color:var(--brassbright);}
+.nav-cta{padding:11px 26px;background:var(--brass);color:#1d0f0f;font-weight:600;font-size:13.5px;text-decoration:none;transition:all 0.3s;border-radius:22px;}
+.nav-cta:hover{background:var(--brassbright);transform:translateY(-1px);}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;}
+.hamburger span{display:block;width:22px;height:2px;background:var(--brass);transition:all 0.3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mob-nav{display:none;position:fixed;inset:0;background:var(--bg);z-index:950;flex-direction:column;align-items:center;justify-content:center;gap:36px;}
+.mob-nav.open{display:flex;}
+.mob-nav a{font-family:'Fraunces',serif;font-size:28px;color:var(--cream);text-decoration:none;}
+.mob-cta{background:var(--brass)!important;color:#1d0f0f!important;padding:14px 44px;border-radius:22px;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:150px 56px 80px;position:relative;gap:70px;}
+.hero::before{content:'';position:absolute;top:-10%;left:8%;width:55%;height:80%;background:radial-gradient(circle,rgba(227,184,113,0.10) 0%,transparent 65%);pointer-events:none;}
+.hero::after{content:'';position:absolute;bottom:-20%;right:0%;width:50%;height:80%;background:radial-gradient(circle,rgba(92,26,36,0.35) 0%,transparent 65%);pointer-events:none;}
+.hero-left{flex:1;max-width:600px;position:relative;z-index:2;}
+.hero-right{flex:0 0 auto;position:relative;z-index:2;}
+.hero-tag{display:inline-flex;align-items:center;gap:12px;border:1px solid var(--border);padding:8px 18px;border-radius:22px;width:fit-content;margin-bottom:32px;opacity:0;animation:fadeUp 0.7s ease 0.2s forwards;}
+.hero-tag span{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--brassbright);}
+.hero h1{font-weight:600;font-size:clamp(38px,4.6vw,60px);line-height:1.12;color:var(--cream);opacity:0;animation:fadeUp 0.8s ease 0.4s forwards;}
+.hero h1 em{color:var(--brassbright);font-style:normal;}
+.hero-desc{font-size:15.5px;color:var(--muted);line-height:1.75;max-width:480px;margin-top:24px;font-weight:300;opacity:0;animation:fadeUp 0.8s ease 0.6s forwards;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:36px;opacity:0;animation:fadeUp 0.8s ease 0.8s forwards;}
+.btn-brass{padding:15px 34px;background:var(--brass);color:#1d0f0f;font-weight:600;font-size:14.5px;text-decoration:none;transition:all 0.3s;display:inline-block;border-radius:26px;}
+.btn-brass:hover{background:var(--brassbright);transform:translateY(-2px);box-shadow:0 10px 30px rgba(201,151,79,0.3);}
+.btn-ghost{padding:15px 34px;border:1.5px solid var(--border);color:var(--cream);font-weight:600;font-size:14.5px;text-decoration:none;transition:all 0.3s;display:inline-block;border-radius:26px;}
+.btn-ghost:hover{border-color:var(--brass);background:rgba(201,151,79,0.08);transform:translateY(-2px);}
+.hero-nums{display:flex;gap:40px;margin-top:56px;padding-top:32px;border-top:1px solid var(--border);opacity:0;animation:fadeUp 0.8s ease 1s forwards;flex-wrap:wrap;}
+.hn-num{font-family:'Fraunces',serif;font-weight:600;font-size:34px;color:var(--brassbright);line-height:1;}
+.hn-lbl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+
+.hero-photo-stack{position:relative;width:380px;height:460px;opacity:0;animation:fadeUp 1s ease 0.5s forwards;}
+.hp-main{position:absolute;width:300px;height:300px;top:10px;left:40px;}
+.hp-small{position:absolute;width:150px;height:150px;bottom:0;left:0;z-index:3;}
+.hp-badge{position:absolute;top:0;right:0;background:var(--curtain);border:1px solid var(--brass);border-radius:50%;width:88px;height:88px;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:4;text-align:center;}
+.hp-badge-num{font-family:'Fraunces',serif;font-weight:700;font-size:20px;color:var(--brassbright);line-height:1;}
+.hp-badge-txt{font-size:7.5px;letter-spacing:1px;text-transform:uppercase;color:var(--cream);margin-top:2px;line-height:1.2;}
+
+/* TICKER */
+.ticker-strip{background:var(--curtain);padding:15px 0;overflow:hidden;white-space:nowrap;border-top:1px solid rgba(227,184,113,0.25);border-bottom:1px solid rgba(227,184,113,0.25);}
+.ticker-track{display:inline-flex;align-items:center;animation:trackScroll 24s linear infinite;}
+.ticker-track span{font-family:'Fraunces',serif;font-weight:500;font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--cream);padding:0 20px;}
+.ticker-track .sep{color:var(--brassbright);padding:0 4px;}
+@keyframes trackScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* SECTION SHARED */
+.sec-tag{display:flex;align-items:center;gap:12px;margin-bottom:16px;}
+.sec-tag-txt{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--brassbright);font-weight:600;}
+.sec-title{font-weight:600;font-size:clamp(30px,3.6vw,48px);line-height:1.1;color:var(--cream);}
+.sec-title em{color:var(--brassbright);font-style:normal;}
+.rv{opacity:0;transform:translateY(24px);transition:opacity 0.7s ease,transform 0.7s ease;}
+.rv.in{opacity:1;transform:translateY(0);}
+
+/* SERVICES */
+.services{padding:110px 56px;}
+.services-hd{margin-bottom:56px;max-width:640px;}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+.svc-card{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:30px 26px;transition:all 0.35s;}
+.svc-card:hover{transform:translateY(-6px);border-color:var(--brass);box-shadow:0 16px 40px rgba(0,0,0,0.4);}
+.svc-top{display:flex;align-items:center;gap:16px;margin-bottom:20px;}
+.svc-photo{width:64px;height:64px;}
+.svc-num{font-size:11px;color:var(--brass);letter-spacing:1px;font-weight:600;}
+.svc-name{font-family:'Fraunces',serif;font-weight:600;font-size:19px;color:var(--cream);margin-top:2px;}
+.svc-desc{font-size:13px;color:var(--muted);line-height:1.65;}
+
+/* OFFER */
+.offer{margin:0 56px 110px;background:linear-gradient(120deg,var(--curtain),var(--curtain2));padding:38px 50px;border-radius:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;position:relative;overflow:hidden;}
+.offer .eq{position:absolute;top:24px;right:220px;opacity:0.35;}
+.offer-eyebrow{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(245,234,217,0.7);margin-bottom:8px;font-weight:600;}
+.offer-title{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(24px,2.8vw,36px);color:var(--cream);}
+.offer-title em{color:var(--brassbright);font-style:normal;}
+.offer-cta{position:relative;z-index:1;padding:15px 34px;background:var(--brass);color:#1d0f0f;font-weight:600;font-size:14px;text-decoration:none;transition:all 0.3s;white-space:nowrap;border-radius:26px;}
+.offer-cta:hover{background:var(--brassbright);transform:translateY(-2px);}
+
+/* WALL - drum-head photo circles */
+.wall{padding:0 0 100px;overflow:hidden;}
+.wall-hd{padding:0 56px;margin-bottom:48px;max-width:660px;}
+.drum-row{display:flex;gap:30px;margin-bottom:30px;width:max-content;align-items:flex-start;}
+.drum-row.r1{animation:scrollLeft 48s linear infinite;}
+.drum-row.r2{animation:scrollRight 54s linear infinite;}
+@keyframes scrollLeft{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+@keyframes scrollRight{from{transform:translateX(-50%);}to{transform:translateX(0);}}
+.drum-card{width:170px;flex-shrink:0;text-align:center;}
+.drum-photo{width:170px;height:170px;margin:0 auto 16px;}
+.drum-name{font-family:'Fraunces',serif;font-weight:600;font-size:15px;color:var(--cream);line-height:1.25;}
+.drum-loc{font-size:10px;color:var(--brassbright);letter-spacing:1px;text-transform:uppercase;margin-top:5px;}
+
+/* ABOUT */
+.about{display:grid;grid-template-columns:0.85fr 1.15fr;background:var(--panel);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.about-visual{padding:90px 56px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--border);}
+.about-stat{margin-bottom:34px;}
+.about-stat:last-child{margin-bottom:0;}
+.as-num{font-family:'Fraunces',serif;font-weight:700;font-size:48px;color:var(--brassbright);line-height:1;}
+.as-txt{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+.about-content{padding:90px 64px 90px 60px;display:flex;flex-direction:column;justify-content:center;}
+.about-body{color:var(--muted);line-height:1.85;font-size:14.5px;margin-top:18px;font-weight:300;}
+.about-body p{margin-bottom:14px;}
+.about-pillars{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:32px;}
+.pillar{padding:18px 20px;background:rgba(19,10,11,0.4);border-left:3px solid var(--brass);border-radius:0 10px 10px 0;}
+.pillar-name{font-family:'Fraunces',serif;font-weight:600;font-size:15.5px;color:var(--cream);margin-bottom:4px;}
+.pillar-desc{font-size:11.5px;color:var(--muted);line-height:1.5;}
+
+/* CONTACT */
+.contact{padding:110px 56px;display:grid;grid-template-columns:1fr 1fr;gap:80px;}
+.c-title{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(28px,3.6vw,42px);color:var(--cream);margin-bottom:32px;line-height:1.12;}
+.c-title em{color:var(--brassbright);font-style:normal;}
+.c-rows{display:flex;flex-direction:column;}
+.c-row{display:flex;gap:16px;align-items:flex-start;padding:20px 0;border-bottom:1px solid var(--border);}
+.c-row:last-child{border-bottom:none;}
+.c-icon-box{width:44px;height:44px;border-radius:50%;background:var(--brass);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.c-lbl{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.c-val{font-size:14px;color:var(--cream);line-height:1.55;}
+.social-links{display:flex;gap:10px;margin-top:28px;}
+.soc{width:44px;height:44px;border-radius:50%;background:var(--panel);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:15px;text-decoration:none;transition:all 0.3s;}
+.soc:hover{background:var(--brass);border-color:var(--brass);}
+.inquiry-card{background:var(--panel);border:1px solid var(--border);padding:40px;border-radius:20px;}
+.ic-title{font-family:'Fraunces',serif;font-weight:600;font-size:24px;color:var(--cream);margin-bottom:6px;}
+.ic-desc{font-size:12.5px;color:var(--muted);line-height:1.6;margin-bottom:24px;}
+.ic-fields{display:flex;flex-direction:column;gap:12px;}
+.ic-input{background:rgba(19,10,11,0.5);border:1px solid var(--border);padding:13px 16px;color:var(--cream);font-family:'Work Sans',sans-serif;font-size:13.5px;outline:none;transition:border 0.3s;width:100%;border-radius:10px;}
+.ic-input::placeholder{color:rgba(245,234,217,0.28);}
+.ic-input:focus{border-color:var(--brass);}
+.ic-submit{width:100%;padding:14px;background:var(--brass);color:#1d0f0f;font-weight:600;font-size:14px;border:none;cursor:pointer;transition:all 0.3s;margin-top:2px;border-radius:10px;}
+.ic-submit:hover{background:var(--brassbright);}
+
+/* FOOTER */
+footer{background:var(--panel);padding:40px 56px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:40px;border-top:1px solid var(--border);}
+.f-logo{display:flex;align-items:center;gap:10px;}
+.f-logo-icon{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--brass);display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:600;font-size:12px;color:var(--brassbright);}
+.f-logo-name{font-family:'Fraunces',serif;font-weight:600;font-size:15px;color:var(--cream);}
+.f-copy{text-align:center;font-size:10.5px;color:var(--muted);line-height:1.7;}
+.f-links{display:flex;gap:10px;justify-content:flex-end;}
+.f-link{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;text-decoration:none;transition:all 0.3s;}
+.f-link:hover{border-color:var(--brass);color:var(--brassbright);}
+
+/* FLOAT WA */
+.fwa{position:fixed;bottom:28px;right:28px;z-index:999;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 24px rgba(37,211,102,0.35);transition:transform 0.3s;animation:pop 0.4s ease 1.5s both;}
+@keyframes pop{from{transform:scale(0);}to{transform:scale(1);}}
+.fwa:hover{transform:scale(1.1);}
+.fwa svg{width:27px;height:27px;fill:white;}
+
+/* MOBILE */
+@media(max-width:960px){
+  nav{padding:0 20px;}
+  .nav-links,.nav-cta{display:none;}
+  .hamburger{display:flex;}
+  .hero{padding:130px 20px 60px;flex-direction:column;}
+  .hero-photo-stack{width:280px;height:340px;margin:0 auto;}
+  .hp-main{width:220px;height:220px;left:30px;}
+  .hp-small{width:110px;height:110px;}
+  .hero-nums{gap:26px;}
+  .hn-num{font-size:26px;}
+  .services{padding:70px 20px;}
+  .svc-grid{grid-template-columns:1fr;}
+  .offer{margin:0 20px 70px;padding:32px 24px;flex-direction:column;align-items:flex-start;border-radius:16px;}
+  .offer .eq{display:none;}
+  .wall-hd{padding:0 20px;}
+  .about{grid-template-columns:1fr;}
+  .about-visual{padding:56px 20px;border-right:none;border-bottom:1px solid var(--border);}
+  .about-content{padding:56px 20px;}
+  .about-pillars{grid-template-columns:1fr;}
+  .contact{grid-template-columns:1fr;padding:70px 20px;gap:44px;}
+  footer{grid-template-columns:1fr;text-align:center;padding:36px 20px;gap:20px;}
+  .f-links{justify-content:center;}
+}
+@media(max-width:480px){
+  .drum-card{width:140px;}
+  .drum-photo{width:140px;height:140px;}
+}
+</style>
+</head>
+<body>
+
+<a href="https://wa.me/917208309169" class="fwa" target="_blank">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">MK</div>
+    <div class="nav-logo-txt">
+      <div class="nav-logo-name">MK Production House</div>
+      <div class="nav-logo-sub">Instrument Service &amp; Studio</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Our Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li class="eq"><span></span><span></span><span></span><span></span><span></span></li>
+  </ul>
+  <a href="tel:+917208309169" class="nav-cta">Call Now</a>
+  <div class="hamburger" id="hbg" onclick="toggleNav()"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="mob-nav" id="mobNav">
+  <a href="#services" onclick="toggleNav()">Services</a>
+  <a href="#gallery" onclick="toggleNav()">Our Work</a>
+  <a href="#about" onclick="toggleNav()">About</a>
+  <a href="#contact" onclick="toggleNav()">Contact</a>
+  <a href="tel:+917208309169" class="mob-cta" onclick="toggleNav()">Call Now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag"><div class="eq"><span></span><span></span><span></span><span></span><span></span></div><span>Jacob Circle, Mumbai · Est. 2015</span></div>
+    <h1>Every drum, tuned<br>&amp; <em>branded</em> to perform.</h1>
+    <p class="hero-desc">MK Production House services, repairs, brands and sells instruments for bands and mandals across Maharashtra — from Ganpati dhol-tasha troupes to wedding brass bands. Ten years of craft, one workshop at Jacob Circle.</p>
+    <div class="hero-btns">
+      <a href="https://wa.me/917208309169" class="btn-brass">Book a Service on WhatsApp</a>
+      <a href="#gallery" class="btn-ghost">See Our Work</a>
+    </div>
+    <div class="hero-nums">
+      <div><div class="hn-num">10+</div><div class="hn-lbl">Years of Experience</div></div>
+      <div><div class="hn-num">100%</div><div class="hn-lbl">Result Guaranteed</div></div>
+      <div><div class="hn-num">6</div><div class="hn-lbl">Instrument Categories</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-photo-stack">
+      <div class="photo-circle hp-main"><img src="https://images.unsplash.com/photo-1571327073757-71d13c24de30?fm=jpg&q=80&w=800&auto=format&fit=crop" alt="Snare drum"></div>
+      <div class="photo-circle hp-small"><img src="https://images.unsplash.com/photo-1676804899250-18a342d77e16?fm=jpg&q=80&w=500&auto=format&fit=crop" alt="Dhol"></div>
+      <div class="hp-badge"><div class="hp-badge-num">10+</div><div class="hp-badge-txt">Years<br>Craft</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-strip">
+  <div class="ticker-track">
+    <span>Tune</span><span class="sep">♪</span>
+    <span>Repair</span><span class="sep">♪</span>
+    <span>Polish</span><span class="sep">♪</span>
+    <span>Waterproof</span><span class="sep">♪</span>
+    <span>Brand</span><span class="sep">♪</span>
+    <span>Sell</span><span class="sep">♪</span>
+    <span>Tune</span><span class="sep">♪</span>
+    <span>Repair</span><span class="sep">♪</span>
+    <span>Polish</span><span class="sep">♪</span>
+    <span>Waterproof</span><span class="sep">♪</span>
+    <span>Brand</span><span class="sep">♪</span>
+    <span>Sell</span><span class="sep">♪</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services" class="services">
+  <div class="services-hd rv">
+    <div class="sec-tag"><span class="sec-tag-txt">What We Do</span></div>
+    <h2 class="sec-title">All types of instrument<br><em>service</em>, under one roof</h2>
+  </div>
+  <div class="svc-grid rv">
+    <div class="svc-card">
+      <div class="svc-top">
+        <div class="photo-circle svc-photo"><img src="https://images.unsplash.com/photo-1543443374-b6fe10a6ab7b?fm=jpg&q=75&w=300&auto=format&fit=crop" alt="Roto"></div>
+        <div><div class="svc-num">01 / ROTO</div><div class="svc-name">Roto Servicing</div></div>
+      </div>
+      <div class="svc-desc">Wood, fiber, aluminium &amp; acrylic roto — tuning, polishing and waterproof colour coating.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-top">
+        <div class="photo-circle svc-photo"><img src="https://images.unsplash.com/photo-1571327073757-71d13c24de30?fm=jpg&q=75&w=300&auto=format&fit=crop" alt="Snare"></div>
+        <div><div class="svc-num">02 / SNARE</div><div class="svc-name">Snare Drum Care</div></div>
+      </div>
+      <div class="svc-desc">SS, acrylic, fiber &amp; wood snares — full tuning, polishing and old-gear repair.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-top">
+        <div class="photo-circle svc-photo"><img src="https://images.unsplash.com/photo-1646667006493-59c13712ea0b?fm=jpg&q=75&w=300&auto=format&fit=crop" alt="Bass"></div>
+        <div><div class="svc-num">03 / BASS</div><div class="svc-name">Bass Drum Service</div></div>
+      </div>
+      <div class="svc-desc">All sizes, wood/fiber/aluminium — waterproofing and body foaming done right.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-top">
+        <div class="photo-circle svc-photo"><img src="https://images.unsplash.com/photo-1676804899250-18a342d77e16?fm=jpg&q=75&w=300&auto=format&fit=crop" alt="Dhol"></div>
+        <div><div class="svc-num">04 / DHOL</div><div class="svc-name">Thaap Dhol</div></div>
+      </div>
+      <div class="svc-desc">Aluminium &amp; Versova thaap dhol — polishing and foaming for a cleaner sound.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-top">
+        <div class="photo-circle svc-photo"><img src="https://images.unsplash.com/photo-1616103755330-53688ce1c14b?fm=jpg&q=75&w=300&auto=format&fit=crop" alt="Tools"></div>
+        <div><div class="svc-num">05 / FULL KIT</div><div class="svc-name">All-Instrument Servicing</div></div>
+      </div>
+      <div class="svc-desc">M.S. and S.S. instruments of every kind — complete workshop servicing.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-top">
+        <div class="photo-circle svc-photo"><img src="https://images.unsplash.com/photo-1774438533232-47277d1466e8?fm=jpg&q=75&w=300&auto=format&fit=crop" alt="Branding"></div>
+        <div><div class="svc-num">06 / SIGNATURE</div><div class="svc-name">Custom Branding</div></div>
+      </div>
+      <div class="svc-desc">Beat-quality graphics, heavy PVC &amp; GL-PVC sheet design in any colour — your mandal's identity, on every drum.</div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section class="offer rv">
+  <div class="eq"><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="offer-left">
+    <div class="offer-eyebrow">Limited Time</div>
+    <div class="offer-title">Flat <em>25% OFF</em> on all instrument servicing</div>
+  </div>
+  <a href="https://wa.me/917208309169" class="offer-cta">Claim the Offer</a>
+</section>
+
+<!-- WALL -->
+<section id="gallery" class="wall">
+  <div class="wall-hd rv">
+    <div class="sec-tag"><span class="sec-tag-txt">Our Work</span></div>
+    <h2 class="sec-title">Every mandal gets<br>its own <em>identity</em></h2>
+  </div>
+  <div class="drum-row r1">
+    <div class="drum-card"><div class="photo-circle drum-photo"><img src="https://images.unsplash.com/photo-1774438533232-47277d1466e8?fm=jpg&q=70&w=400&auto=format&fit=crop"></div><div class="drum-name">Sargam Rhythmist</div><div class="drum-loc">Custom Branding</div></div>
+    <div class="drum-card"><div class="photo-circle drum-photo"><img src="https://images.unsplash.com/photo-1571327073757-71d13c24de30?fm=jpg&q=70&w=400&auto=format&fit=crop"></div><div class="drum-name">Vighnaharta</div><div class="drum-loc">Snare Set</div></div>
+    <div class="drum-card"><div class="photo-circle drum-photo"><img src="https://images.unsplash.com/photo-1646667006493-59c13712ea0b?fm=jpg&q=70&w=400&auto=format&fit=crop"></div><div class="drum-name">Sai Sharda</div><div class="drum-loc">Bass Servicing</div></div>
+    <div class="drum-card"><div class="photo-circle drum-photo"><img src="https://images.unsplash.com/photo-1616103755330-53688ce1c14b?fm=jpg&q=70&w=400&auto=format&fit=crop"></div><div class="drum-name">Aashirwad Musical</div><div class="drum-loc">Full Kit</div></div>
+    <div class="drum-card"><div class="photo-circle drum-photo"><img src="https://images.unsplash.com/photo-1571327073757-71d13c24de30?fm=jpg&q=70&w=400&auto=format&fit=crop"></div><div class="drum-name">Zowag Premium</div><div class="drum-loc">Snare Drum</div></div>
+    <div class="drum-card"><div class="photo-circle drum-photo"><img src="https://images.unsplash.com/photo-1774438533232-47277d1466e8?fm=jpg&q=70&w=400&auto=format&fit=crop"></div><div class="drum-name">Sargam Rhythmist</div><div class="drum-loc">Custom Branding</div></div>
+    <div class="drum-card"><div class="photo-circle drum-photo"><img src="https://images.unsplash.com/photo-1571327073757-71d13c24de30?fm=jpg&q=70&w=400&auto=format&fit=crop"></div><div class="drum-name">Vighnaharta</div><div class="drum-loc">Snare Set</div></div>
+    <div class="drum-card"><div class="photo-circle drum-photo"><img src="https://images.unsplash.com/photo-1646667006493-59c13712ea0b?fm=jpg&q=70&w=400&auto=format&fit=crop"></div><div class="drum-name">Sai Sharda</div><div class="drum-loc">Bass Servicing</div></div>
+  </div>
+  <div class="drum-row r2">
+    <div class="drum-card"><div class="photo-circle drum-photo"><img src="https://images.unsplash.com/photo-1676804899250-18a342d77e16?fm=jpg&q=70&w=400&auto=format&fit=crop"></div><div class="drum-name">Dapoli Artist Band</div><div class="drum-loc">Thaap Dhol</div></div>
+    <div class="drum-card"><div class="photo-circle drum-photo"><img src="https://images.unsplash.com/photo-1571327073757-71d13c24de30?fm=jpg&q=70&w=400&auto=format&fit=crop"></div><div class="drum-name">Chiplun Artist</div><div class="drum-loc">Snare Drum</div></div>
+    <div class="drum-card"><div class="photo-circle drum-photo"><img src="https://images.unsplash.com/photo-1616103755330-53688ce1c14b?fm=jpg&q=70&w=400&auto=format&fit=crop"></div><div class="drum-name">Shree Sai Musical</div><div class="drum-loc">Full Kit</div></div>
+    <div class="drum-card"><div class="photo-circle drum-photo"><img src="https://images.unsplash.com/photo-1646667006493-59c13712ea0b?fm=jpg&q=70&w=400&auto=format&fit=crop"></div><div class="drum-name">Muzical Rhythm Group</div><div class="drum-loc">Bass &amp; Snare</div></div>
+    <div class="drum-card"><div class="photo-circle drum-photo"><img src="https://images.unsplash.com/photo-1543443374-b6fe10a6ab7b?fm=jpg&q=70&w=400&auto=format&fit=crop"></div><div class="drum-name">Custom Wrap</div><div class="drum-loc">Roto Refinish</div></div>
+    <div class="drum-card"><div class="photo-circle drum-photo"><img src="https://images.unsplash.com/photo-1676804899250-18a342d77e16?fm=jpg&q=70&w=400&auto=format&fit=crop"></div><div class="drum-name">Dapoli Artist Band</div><div class="drum-loc">Thaap Dhol</div></div>
+    <div class="drum-card"><div class="photo-circle drum-photo"><img src="https://images.unsplash.com/photo-1571327073757-71d13c24de30?fm=jpg&q=70&w=400&auto=format&fit=crop"></div><div class="drum-name">Chiplun Artist</div><div class="drum-loc">Snare Drum</div></div>
+    <div class="drum-card"><div class="photo-circle drum-photo"><img src="https://images.unsplash.com/photo-1616103755330-53688ce1c14b?fm=jpg&q=70&w=400&auto=format&fit=crop"></div><div class="drum-name">Shree Sai Musical</div><div class="drum-loc">Full Kit</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about rv">
+    <div class="about-visual">
+      <div class="about-stat"><div class="as-num">10+</div><div class="as-txt">Years at Jacob Circle</div></div>
+      <div class="about-stat"><div class="as-num">6</div><div class="as-txt">Instrument categories serviced</div></div>
+      <div class="about-stat"><div class="as-num">100%</div><div class="as-txt">Result, every job</div></div>
+    </div>
+    <div class="about-content">
+      <div class="sec-tag"><span class="sec-tag-txt">Who We Are</span></div>
+      <h2 class="sec-title">Mumbai's trusted<br>instrument <em>workshop</em></h2>
+      <div class="about-body">
+        <p>MK Production House has spent 10 years at Jacob Circle, Mumbai, servicing, repairing and branding instruments for bands and mandals across Maharashtra — from Ganpati dhol-tasha troupes to wedding brass bands.</p>
+        <p>Every drum that leaves the workshop is tuned, waterproofed and finished by hand, and every mandal gets a custom graphic identity that's unmistakably theirs. From Mumbai to Chiplun and Dapoli, the same workshop, the same standard.</p>
+      </div>
+      <div class="about-pillars">
+        <div class="pillar"><div class="pillar-name">Expert Technician</div><div class="pillar-desc">Ten years of hands-on repair and tuning experience</div></div>
+        <div class="pillar"><div class="pillar-name">Quality Service</div><div class="pillar-desc">Every instrument checked before it leaves the shop</div></div>
+        <div class="pillar"><div class="pillar-name">Durable Finish</div><div class="pillar-desc">Waterproof coating built for outdoor festival use</div></div>
+        <div class="pillar"><div class="pillar-name">Customer Satisfaction</div><div class="pillar-desc">Repeat mandals and bands, season after season</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="rv">
+    <h2 class="c-title">Get your instruments<br><em>sorted</em></h2>
+    <div class="c-rows">
+      <div class="c-row"><div class="c-icon-box">📞</div><div><div class="c-lbl">Call or WhatsApp</div><div class="c-val">+91 72083 09169</div></div></div>
+      <div class="c-row"><div class="c-icon-box">📍</div><div><div class="c-lbl">Workshop Address</div><div class="c-val">Kasturba Quarters, Jacob Circle,<br>Mumbai, Maharashtra — 400011</div></div></div>
+      <div class="c-row"><div class="c-icon-box">📸</div><div><div class="c-lbl">Instagram</div><div class="c-val">@mk_production_house</div></div></div>
+    </div>
+    <div class="social-links">
+      <a href="https://www.instagram.com/mk_production_house" class="soc" target="_blank">📸</a>
+      <a href="https://wa.me/917208309169" class="soc" target="_blank">💬</a>
+      <a href="tel:+917208309169" class="soc">📞</a>
+    </div>
+  </div>
+  <div class="rv">
+    <div class="inquiry-card">
+      <div class="ic-title">Book a Service</div>
+      <div class="ic-desc">Fill this in and we'll get back to you on WhatsApp within a day.</div>
+      <div class="ic-fields">
+        <input class="ic-input" type="text" placeholder="Your name">
+        <input class="ic-input" type="text" placeholder="Phone number">
+        <input class="ic-input" type="text" placeholder="Mandal / band name (if any)">
+        <select class="ic-input" style="cursor:pointer;">
+          <option value="" disabled selected>What do you need?</option>
+          <option>Servicing / Repair</option>
+          <option>Custom Branding</option>
+          <option>Buy New Instruments</option>
+          <option>Something Else</option>
+        </select>
+        <button class="ic-submit">Send on WhatsApp →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo"><div class="f-logo-icon">MK</div><div class="f-logo-name">MK Production House</div></div>
+  <div class="f-copy">© 2026 MK Production House — Jacob Circle, Mumbai<br>Instrument Service, Repair, Branding &amp; Sales</div>
+  <div class="f-links">
+    <a href="https://www.instagram.com/mk_production_house" class="f-link" target="_blank">📸</a>
+    <a href="https://wa.me/917208309169" class="f-link" target="_blank">💬</a>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+
+function toggleNav() {
+  document.getElementById('hbg').classList.toggle('open');
+  document.getElementById('mobNav').classList.toggle('open');
+  document.body.style.overflow = document.getElementById('mobNav').classList.contains('open') ? 'hidden' : '';
+}
+
+document.querySelector('.ic-submit').addEventListener('click', function() {
+  const inputs = document.querySelectorAll('.ic-input');
+  const name = inputs[0].value || 'there';
+  const phone = inputs[1].value || '';
+  const mandal = inputs[2].value || '';
+  const need = inputs[3].value || 'a service';
+  const msg = `Hi MK Production House, I'm ${name}${mandal ? ' from ' + mandal : ''}. I'm looking for: ${need}. My number: ${phone}`;
+  window.open(`https://wa.me/917208309169?text=${encodeURIComponent(msg)}`, '_blank');
+});
+
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('in'), i * 80);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
